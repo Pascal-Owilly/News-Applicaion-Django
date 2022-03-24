@@ -34,6 +34,11 @@ class Article(models.Model):
     editor = models.ForeignKey(Editor, on_delete=models.DO_NOTHING)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+    @classmethod
+    def search_by_title(cls,search_term):
+        news = cls.objects.filter(title__icontains=search_term)
+        return news
+    
 
     def __str__(self):
         return self.title
